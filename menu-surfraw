@@ -47,9 +47,9 @@ answerB=$(echo "${@:2}")
 # the search in surfraw
 if [[ -z "$answerA" ]]; then
 	action=$(surfraw -elvi | awk -F'-' '{print $1}' | sed '/:/d' | awk '{$1=$1};1' |
-	        $menu -p "web: ")
+	        $menu -p "web: " -matching fuzzy -theme nord2.rasi)
 elif [[ -z "$answerB" ]]; then
-	action=$(echo "" | $menu -p "$answerA ")
+	action=$(echo "" | $menu -p "$answerA " -mesg "$(sr "$answerA" -lh)" -theme nord2.rasi -theme-str "listview { enabled: false; }")
 else
 	surfraw -browser=$browser $answerA
 fi
